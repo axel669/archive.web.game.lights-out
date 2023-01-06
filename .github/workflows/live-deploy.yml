@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       version: ${{ github.ref_name }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.ACCESSKEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRETKEY }}
     steps:
     - name: Checkout
       uses: actions/checkout@v3
