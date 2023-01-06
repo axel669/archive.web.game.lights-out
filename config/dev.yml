@@ -1,0 +1,4 @@
+bucket:
+  name: dev.lights-out
+api:
+  stage: dev

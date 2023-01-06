@@ -1,0 +1,41 @@
+region: us-west-1
+prefix: game.lights-out_
+tags:
+  project: Lights Out
+
+s3:
+  site:
+    dir: build
+    name: ${.bucket.name}
+    policy:
+    - Effect: Allow
+      Principal: "*"
+      Action:
+      - s3:GetObject
+      Resource: arn:aws:s3:::${.bucket.name}/*
+
+apig:
+  site:
+    name: Game/Lights Out
+    stage: ${.api.stage}
+    stageVars:
+      bucket: ${.bucket.name}
+    actions:
+      index:
+        type: http
+        url: https://s3.us-west-1.amazonaws.com/${stageVariables.bucket}/index.html
+        method: get
+      files:
+        type: http
+        url: https://s3.us-west-1.amazonaws.com/${stageVariables.bucket}/{file}
+        method: get
+    routes:
+      "GET /":
+        action: index
+      "GET /{file+}":
+        action: files
+
+deployment:
+  resources:
+  - s3:site
+  - apig:site

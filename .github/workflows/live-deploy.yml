@@ -1,0 +1,20 @@
+name: Deploy to Live
+
+on:
+  push:
+    tags:
+    - "*"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      version: ${{ github.ref_name }}
+    steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - run: |
+        npm install
+        npm run build
+        npm run deploy:live

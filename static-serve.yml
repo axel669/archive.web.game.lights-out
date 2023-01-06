@@ -1,0 +1,6 @@
+port: 1338
+headers:
+  cache-control: no-cache
+sources:
+- dir: build
+- dir: static

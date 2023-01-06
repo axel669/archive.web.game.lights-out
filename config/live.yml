@@ -1,0 +1,4 @@
+bucket:
+  name: live.lights-out
+api:
+  stage: live
